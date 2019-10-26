@@ -8,8 +8,10 @@
 # PART 6: Theme based rhyming words                         (NOPE)
 # PART 7: Export as a website or an app                     (NOPE)
     
-import pronouncing #if unavailable, install first use: pip install pronouncing
+import pronouncing
 import random
+import syllables as syl
+#if unavailable, install first use: pip install <library name>
 
 def rhyming_word_generator(rhyming_scheme):
     for alphabet in rhyming_scheme:
@@ -21,14 +23,17 @@ def rhyming_word_generator(rhyming_scheme):
                 if key == alphabet:
                     flag = 1
                     words=rhyme_pattern[alphabet]
-                    print("To match with '{}': {}".format(key, words))
+                    print("To match with line type '{}' with {} syllables in total: {}"\
+                            .format(key, sentence_syllables[alphabet], words))
     
         if flag == 0:
             words = []
-            sentence = input("Enter your sentence: ")
+            sentence = input("Enter your line: ")
             #print("sentence: {}".format(sentence))
             sentence_words = sentence.split(" ")
             #print("sentence words: {}".format(sentence_words))
+            sentence_syllables[alphabet] = syl.estimate(sentence)
+            print(sentence_syllables[alphabet])
             last_word = sentence_words.pop()
             #print("last words: {}".format(last_word))
             l = pronouncing.rhymes(last_word)
@@ -38,6 +43,7 @@ def rhyming_word_generator(rhyming_scheme):
             rhyme_pattern[alphabet] = words
 
 rhyme_pattern = {} #alphabet: word
+sentence_syllables = {} #alphabet: syllable-count
 pattern = []
 exit = False
 

@@ -9,12 +9,17 @@
 # PART 7: Export as a website or an app                     (NOPE)
     
 import pronouncing #if unavailable, install first use: pip install pronouncing
-    
+import random
+
 def rhyming_word_generator(end_word):
+    words = []
     l = pronouncing.rhymes(end_word)
-    return l[0:4]
-    
-exit = True
+    for i in range(4):
+        words.append(random.choice(l))
+    return words
+
+pattern = []
+exit = False
 while(exit == False):
     
     rhyming_scheme = input("Enter rhyming scheme of a stanza: ")
@@ -23,20 +28,26 @@ while(exit == False):
     # if pre-recorded type re-appears, recommend those rhyming words
     #instead of the predecessor words rhyming options
     
-    for i in rhyming_pattern:
+    for num,i in enumerate(rhyming_pattern):
+        #if(flag == 1):
+            
         sentence = input("Enter your sentence: ")
-        if(sentence == 'exit'):
-            exit = False
-            continue
-        #print(sentence)
+        
+        #if(sentence == 'exit'):
+        #    exit = True
+        #    break
+        
+        print(sentence)
     
         sentence_words = sentence.split(" ")
-        #print(sentence_words)
+        print(sentence_words)
     
         last_word = sentence_words.pop()
-        #print(last_word)
+        print(last_word)
     
-        answer = rhyming_word_generator(i, last_word)
+        answer = rhyming_word_generator(last_word)
+        #if rhyming_pattern[num+1] in rhyming_pattern[0:num]:
+        #    flag = 1
         print("Termination options for {} : {}".format(last_word,answer))
     
     
